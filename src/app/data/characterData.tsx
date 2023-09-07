@@ -1,7 +1,8 @@
 const characterData = [
   {
+    id: 'fancy id',
     name: "",
-    statuses: [],
+    statuses: [] as string[],
     curHp: 0,
     maxHp: 0,
     init: 0,
@@ -11,5 +12,7 @@ const characterData = [
     keepAfterClear: false, // TODO Flag to exclude character from the Clear Combatants button
   },
 ]
+
+export type CharacterData = typeof characterData[0]
 
 export default characterData

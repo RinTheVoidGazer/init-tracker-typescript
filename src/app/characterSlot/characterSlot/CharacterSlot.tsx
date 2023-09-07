@@ -1,58 +1,44 @@
 // Components
-import ParentBox from "../../globalComponents/layout/ParentBox"
-// import CharacterSlotTop from "./characterSlotTop/CharacterSlotTop"
+import { CharacterData } from '../../data/characterData'
+import ParentBox from '../../globalComponents/layout/ParentBox'
+import CharacterSlotTop from './characterSlotTop/CharacterSlotTop'
 // import CharacterSlotActions from "./characterSlotActions/CharacterSlotActions"
 // import CharacterSlotBottom from "./characterSlotBottom/CharacterSlotBottom"
-// import ActiveCombatantIndicator from "./ActiveCombatantIndicator"
-// import CharacterBanner from "./CharacterBanner.js"
+import ActiveCombatantIndicator from './ActiveCombatantIndicator'
+import CharacterBanner from './CharacterBanner'
+import { ComponentProps } from 'react'
 
 // meep https://mui.com/material-ui/customization/how-to-customize/
 
-type CharacterSlotProps = {
-  key: number
-  charInfo: {
-    name: string
-    // statuses: []
-    curHp: number
-    maxHp: number
-    init: number
-    ac: number
-    isEnemy: boolean
-    isMainParty: boolean
-    keepAfterClear: boolean
-  }
-  index: number
-  // combatants:
-  // setCombatants:
-  activeCombatant?: number
+interface CharacterSlotProps extends ComponentProps<typeof CharacterSlotTop> {
+  activeCombatant: number
 }
 
-const CharacterSlot = (props: CharacterSlotProps) => {
+const CharacterSlot = ({ activeCombatant, ...props }: CharacterSlotProps) => {
   return (
-    <ParentBox padding="8px" testId={`characterSlot${props.index}`}>
-      test
-      {/* <ActiveCombatantIndicator activeCombatant={activeCombatant} index={index}>
-        <CharacterBanner charInfo={charInfo}>
-          <CharacterSlotTop
-            index={index}
-            charInfo={charInfo}
-            combatants={combatants}
-            setCombatants={setCombatants}
-          />
+    <ParentBox padding="8px" testId={`characterSlot${props.charIndex}`}>
+      {
+        <ActiveCombatantIndicator
+          activeCombatant={activeCombatant}
+          index={props.charIndex}
+        >
+          <CharacterBanner charName={props.charInfo.name} charIsEnemy={props.charInfo.isEnemy} index={props.charIndex}>
+            <CharacterSlotTop {...props} />
 
-          <CharacterSlotBottom
-            index={index}
-            charInfo={charInfo}
-            setCombatants={setCombatants}
-          />
-        </CharacterBanner>
-      </ActiveCombatantIndicator>
+            {/* <CharacterSlotBottom
+              index={index}
+              charInfo={charInfo}
+              setCombatants={setCombatants}
+            /> */}
+          </CharacterBanner>
+        </ActiveCombatantIndicator>
 
-      <CharacterSlotActions
-        index={index}
-        setCombatants={setCombatants}
-        charInfo={charInfo}
-      /> */}
+        // <CharacterSlotActions
+        //   index={index}
+        //   setCombatants={setCombatants}
+        //   charInfo={charInfo}
+        // />
+      }
     </ParentBox>
   )
 }
