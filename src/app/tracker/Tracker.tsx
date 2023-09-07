@@ -19,7 +19,7 @@ import CharacterSlot from "../characterSlot/characterSlot/CharacterSlot"
 const Tracker = () => {
   const [combatants, setCombatants] = useState([...characterData])
   //   const [turnCount, setTurnCount] = useState(1)
-  //   const [activeCombatant, setActiveCombatant] = useState(0)
+    const [activeCombatant, setActiveCombatant] = useState(0)
 
   return (
     <Theme>
@@ -45,12 +45,10 @@ const Tracker = () => {
               {combatants.map((charInfo, index) => {
                 return (
                   <CharacterSlot
-                    key={index}
                     charInfo={charInfo}
-                    index={index}
-                    // combatants={combatants}
-                    // setCombatants={setCombatants}
-                    // activeCombatant={activeCombatant}
+                    charIndex={index}
+                    setCombatants={setCombatants}
+                    activeCombatant={activeCombatant}
                   />
                 )
               })}

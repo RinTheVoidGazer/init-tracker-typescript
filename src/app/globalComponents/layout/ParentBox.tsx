@@ -1,12 +1,12 @@
 // A div that controls it's content's positioning.
-type ParentBoxProps = {
+interface ParentBoxProps {
   children: React.ReactNode
   flexDirection?: "row" | "column"
   gap?: string
   padding?: string | undefined
   justifyContent?: string | undefined
   alignItems?: string | undefined
-  testId: string
+  testId?: string
 }
 
 const ParentBox = (props: ParentBoxProps) => {
