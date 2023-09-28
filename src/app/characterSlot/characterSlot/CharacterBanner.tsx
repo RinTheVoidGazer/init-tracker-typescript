@@ -19,7 +19,7 @@ const CharacterBanner = ({ charName, charIsEnemy, index, children } : PropsWithC
       }}
       className="characterSlot"
       style={{
-        height: '15vh',
+        height: '16vh',
         flex: 1,
         flexDirection: 'column',
         alignItems: 'stretch',

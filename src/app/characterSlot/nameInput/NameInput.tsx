@@ -1,3 +1,6 @@
+// React
+import { Dispatch, SetStateAction } from "react"
+
 // MUI
 import { TextField } from '@mui/material'
 
@@ -6,36 +9,36 @@ import { TextField } from '@mui/material'
 
 // Data
 import { CharacterData } from '../../data/characterData'
-import updateNonNestedCharacterValue from '../../utilFunctions/updateNonNestedCharacterValue'
+import updateNonNestedCharacterValue from '../../utils/functions/updateNonNestedCharacterValue'
 
 
-interface NameInputProps {
-  objKey: string
-  charEditIndex: number
-  nameInputValue: string
-  setCombatants:  (value: CharacterData[]) => void
+interface NameInputProps <Key extends keyof CharacterData> {
+  objKey: Key
+  charIndex: number
+  charName: string
+  setCombatants : Dispatch<SetStateAction<CharacterData[]>>
 }
 
-const NameInput = ({
+const NameInput = <Key extends keyof CharacterData>({
   objKey,
-  charEditIndex,
-  nameInputValue,
+  charIndex,
+  charName,
   setCombatants,
-} : NameInputProps) => {
+} : NameInputProps<Key>) => {
   return (
     <TextField
       label="Character Name"
       size="small"
       autoFocus
       tabIndex={0}
-      value={nameInputValue}
+      value={charName}
       color="secondary"
       onChange={(e) =>
         updateNonNestedCharacterValue(
-          objKey,
+          'name',
           e.target.value,
           setCombatants,
-          charEditIndex
+          charIndex
         )
       }
     />

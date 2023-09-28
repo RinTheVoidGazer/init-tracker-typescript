@@ -1,18 +1,24 @@
+// React
+import { Dispatch, SetStateAction } from 'react'
+
+// Components
 import ParentBox from '../../../globalComponents/layout/ParentBox'
 import NameInput from '../../nameInput/NameInput'
-// import Statuses from '../../statuses/Statuses'
+import Statuses from '../../statuses/Statuses'
+
+// Data
 import { CharacterData } from '../../../data/characterData'
 
 
+
 interface CharacterSlotLeftProps {
-  charIndex: number
-  charName: string
-  charStatuses: string[]
-  setCombatants: (value: CharacterData[]) => void
+  charIndex : number
+  charInfo : CharacterData
+  setCombatants : Dispatch<SetStateAction<CharacterData[]>>
 }
 
 
-const CharacterSlotLeft = ({ charIndex, charName, charStatuses, setCombatants } : CharacterSlotLeftProps ) => {
+const CharacterSlotLeft = ({ charIndex, charInfo, setCombatants } : CharacterSlotLeftProps ) => {
   return (
     <ParentBox
       // name="characterNameStatuses"
@@ -22,20 +28,19 @@ const CharacterSlotLeft = ({ charIndex, charName, charStatuses, setCombatants } 
       <span className="name">
         <NameInput
           objKey="name"
-          charEditIndex={charIndex}
-          nameInputValue={charName}
+          charIndex={charIndex}
+          charName={charInfo.name}
           setCombatants={setCombatants}
         />
       </span>
 
-      {/* <span className="statuses">
+      <span className="statuses">
         <Statuses
-          objKey="statuses"
-          characterValue={charInfo.statuses}
+          charStatuses={charInfo.statuses}
           charEditIndex={charIndex}
           setCombatants={setCombatants}
         />
-      </span> */}
+      </span>
     </ParentBox>
   )
 }

@@ -1,8 +1,7 @@
 import { PropsWithChildren } from 'react'
 
 // CSS
-// import '../../styles/ActiveCombatantEffect.css'
-// meep
+import '../../styles/ActiveCombatantEffect.css'
 
 interface ActiveCombatanIndicatortProps {
   activeCombatant: number
