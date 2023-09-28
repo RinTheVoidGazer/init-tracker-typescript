@@ -5,21 +5,23 @@ import { useState } from "react"
 import "./Tracker.css"
 import Theme from "../styles/Theme"
 
-//Material-Ui
+// MUI
 import { Paper } from "@mui/material"
+
+// State
+import { CombatantsProvider } from "../combatants/CombatantsContext"
 
 // Components
 // import ManageData from "../session/ManageData"
-import characterData from "../data/characterData"
-// import TurnDisplay from "./trackerControls/TurnDisplay"
-// import AddCharacter from "./trackerControls/AddCharacter"
-import CharacterSlot from "../characterSlot/characterSlot/CharacterSlot"
-// import NextCombatant from "./trackerControls/NextCombatant"
+import TurnDisplay from "./trackerControls/TurnDisplay"
+import AddCharacter from "./trackerControls/AddCharacter"
+import NextCombatant from "./trackerControls/NextCombatant"
+import CharacterSheet from "../characterSlot/characterSlot/CharacterSheet"
 
 const Tracker = () => {
-  const [combatants, setCombatants] = useState([...characterData])
-  //   const [turnCount, setTurnCount] = useState(1)
-    const [activeCombatant, setActiveCombatant] = useState(0)
+  const [turnCount, setTurnCount] = useState(1)
+  
+
 
   return (
     <Theme>
@@ -41,37 +43,24 @@ const Tracker = () => {
               }
             }
           >
-            <div className="characterSlotContainer">
-              {combatants.map((charInfo, index) => {
-                return (
-                  <CharacterSlot
-                    charInfo={charInfo}
-                    charIndex={index}
-                    setCombatants={setCombatants}
-                    activeCombatant={activeCombatant}
-                  />
-                )
-              })}
-            </div>
-            {/* 
+            <CombatantsProvider>
+              <CharacterSheet />
+            
             <div className="trackerControlsContainer addCharacterButtonContainer">
-              <AddCharacter setCombatants={setCombatants} />
-            </div> */}
+              <AddCharacter />
+            </div>
 
-            {/* <div className="trackerControlsContainer nextCombatantButtonContainer">
+            <div className="trackerControlsContainer nextCombatantButtonContainer">
               <NextCombatant
-                combatants={combatants}
-                activeCombatant={activeCombatant}
-                setCombatants={setCombatants}
-                setActiveCombatant={setActiveCombatant}
                 setTurnCount={setTurnCount}
                 turnCount={turnCount}
               />
-            </div> */}
+            </div>
+            </CombatantsProvider>
 
-            {/* <div className="trackerControlsContainer turnDisplayTextContainer">
+            <div className="trackerControlsContainer turnDisplayTextContainer">
               <TurnDisplay turnCount={turnCount} />
-            </div> */}
+            </div>
           </Paper>
         </div>
       </div>

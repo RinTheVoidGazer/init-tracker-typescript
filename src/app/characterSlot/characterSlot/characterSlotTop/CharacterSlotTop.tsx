@@ -1,16 +1,14 @@
-import { CharacterData } from '../../../data/characterData'
+// React
+import { ComponentProps } from 'react'
+
+// Components
 import ParentBox from '../../../globalComponents/layout/ParentBox'
 import CharacterSlotLeft from './CharacterSlotLeft'
-// import CharacterSlotRight from './CharacterSlotRight'
+import CharacterSlotRight from './CharacterSlotRight'
 
+interface CharacterSlotTopProps extends ComponentProps<typeof CharacterSlotLeft> {}
 
-interface CharacterSlotTopProps {
-  charIndex: number
-  charInfo: CharacterData
-  setCombatants: (value: CharacterData[]) => void
-}
-
-const CharacterSlotTop = ({ charIndex, charInfo, setCombatants }: CharacterSlotTopProps) => {
+const CharacterSlotTop = ({ ...props } : CharacterSlotTopProps) => {
   return (
     <ParentBox
       // name="characterSlotTop"
@@ -18,17 +16,16 @@ const CharacterSlotTop = ({ charIndex, charInfo, setCombatants }: CharacterSlotT
       padding="8px 8px 0px 8px"
     >
       <CharacterSlotLeft
-        charIndex={charIndex}
-        charName={charInfo.name}
-        charStatuses={charInfo.statuses}
-        setCombatants={setCombatants}
+        charIndex={props.charIndex}
+        charInfo={props.charInfo}
+        setCombatants={props.setCombatants}
       />
 
-      {/* <CharacterSlotRight
-        index={index}
-        charInfo={charInfo}
-        setCombatants={setCombatants}
-      /> */}
+      <CharacterSlotRight
+        charIndex={props.charIndex}
+        charInfo={props.charInfo}
+        setCombatants={props.setCombatants}
+      />
     </ParentBox>
   )
 }

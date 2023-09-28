@@ -1,8 +1,15 @@
+import { createUniqueId } from '../utils/functions/createUniqueId';
+
+interface CharacterStatus {
+  name: string;
+  duration: number;
+}
+
 const characterData = [
   {
-    id: 'fancy id',
+    id: createUniqueId(),
     name: "",
-    statuses: [] as string[],
+    statuses: [] as CharacterStatus[],
     curHp: 0,
     maxHp: 0,
     init: 0,
@@ -13,6 +20,9 @@ const characterData = [
   },
 ]
 
+
 export type CharacterData = typeof characterData[0]
+export type CharacterDataKey = keyof typeof characterData[0]
+export type CharacterStatuses = CharacterStatus
 
 export default characterData
