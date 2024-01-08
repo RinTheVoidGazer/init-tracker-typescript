@@ -1,40 +1,33 @@
-// React
-import { Dispatch, SetStateAction } from "react"
-
 // MUI
-import { TextField } from "@mui/material"
-import { CharacterData } from "../../data/characterData"
+import { TextField } from '@mui/material'
 
-// Functions
-import updateNonNestedCharacterValue from "../../utils/functions/updateNonNestedCharacterValue"
+// Hooks
+import { useUpdateCombatant } from '../hooks/useUpdateCombatant'
+import { useCombatantInfo } from '../../combatants/hooks/useCombatantInfo'
 
 interface MaxHpInputProps {
-  charIndex : number
-  charCurHp : number
-  charMaxHp : number
-  setCombatants : Dispatch<SetStateAction<CharacterData[]>>
+  charId: string
 }
 
-const MaxHpInput = ({ charIndex, charCurHp, charMaxHp, setCombatants } : MaxHpInputProps) => {
+const MaxHpInput = ({ charId }: MaxHpInputProps) => {
+  const { updateCombatant } = useUpdateCombatant()
+  const { getCharacterById } = useCombatantInfo()
+
+  const { curHp, maxHp } = getCharacterById(charId)
+
   return (
     <TextField
-      variant="standard"
       type="number"
+      variant="standard"
       size="small"
       tabIndex={4}
-      style={{ width: "50px" }}
+      style={{ width: '50px' }}
       inputProps={{
-        min: charCurHp,
+        min: curHp,
+        "aria-label": 'Max HP'
       }}
-      value={charMaxHp}
-      onChange={(e) =>
-        updateNonNestedCharacterValue(
-          "maxHp",
-          parseInt(e.target.value),
-          setCombatants,
-          charIndex
-        )
-      }
+      value={maxHp}
+      onChange={(e) => updateCombatant(charId, 'maxHp', e.target.value)}
     />
   )
 }

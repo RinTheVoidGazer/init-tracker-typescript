@@ -2,9 +2,9 @@ import { Dispatch, SetStateAction } from "react"
 import { CharacterData } from "../../data/characterData"
 
 // Function for adding a new status
-const handleAddNewStatus = (
+const addNewStatus = (
   setCombatants : Dispatch<SetStateAction<CharacterData[]>>,
-  charIndex : number,
+  charIndex : string,
   newStatusName : string,
   newStatusDuration : string,
   setNewStatusName : (value : string) => void,
@@ -24,4 +24,4 @@ const handleAddNewStatus = (
   setNewStatusDuration('')
 }
 
-export default handleAddNewStatus
+export default addNewStatus

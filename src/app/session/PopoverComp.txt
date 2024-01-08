@@ -1,0 +1,30 @@
+import * as React from "react"
+
+// MUI
+import Popover from "@mui/material/Popover"
+import Typography from "@mui/material/Typography"
+
+const PopoverComp = ({
+  id,
+  open,
+  anchorEl,
+  children,
+  handleClose,
+  anchorOrigin = { vertical: "top", horizontal: "right" },
+}) => {
+  return (
+    <div>
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={anchorOrigin}
+      >
+        <Typography sx={{ p: 2 }}>{children}</Typography>
+      </Popover>
+    </div>
+  )
+}
+
+export default PopoverComp

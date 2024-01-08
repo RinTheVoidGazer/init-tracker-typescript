@@ -1,65 +1,44 @@
-// React
-import { Dispatch, SetStateAction } from "react"
-
 // MUI
-import { Paper } from "@mui/material"
-import { CharacterData } from "../../data/characterData"
+import { Paper } from '@mui/material'
+
+// Hooks
+import { useHpBar } from './hooks/useHpBar'
 
 // Components
-import CurrentHpInput from "./CurrentHpInput"
-import MaxHpInput from "./MaxHpInput"
+import CurrentHpInput from './CurrentHpInput'
+import MaxHpInput from './MaxHpInput'
 
 interface HpBarProps {
-  charIndex : number
-  charCurHp : number
-  charMaxHp : number
-  setCombatants : Dispatch<SetStateAction<CharacterData[]>>
+  charId: string
 }
 
-const HpBar = ({ charIndex, charCurHp, charMaxHp, setCombatants } : HpBarProps) => {
-  let hpBarColor =
-    (charCurHp / charMaxHp) * 100 >= 80
-      ? "green"
-      : (charCurHp / charMaxHp) * 100 >= 30
-      ? "orange"
-      : charCurHp <= 0
-      ? "black"
-      : "red"
+const HpBar = ({ charId }: HpBarProps) => {
+  const { hpBarColor, hpBarWidth } = useHpBar(charId)
 
   return (
     <Paper
       // name="hpBarBG"
       elevation={3}
-      style={{ width: "50%", background: "black", position: "relative" }}
+      style={{ width: '50%', background: 'black', position: 'relative' }}
     >
       <Paper
         // name="hpBarActualBar"
         elevation={0}
         style={{
           zIndex: 0,
-          width: `${(charCurHp / charMaxHp) * 100}%`,
+          width: hpBarWidth,
           background: hpBarColor,
         }}
       >
         <div
           // name="hpBarNumbers"
-          style={{ position: "absolute", top: 0, left: "45%", color: "white" }}
+          style={{ position: 'absolute', top: 0, left: '45%', color: 'white' }}
           // style={{ display: 'flex', justifyContent: 'center', color: "white" }}
         >
           <div>
-            <CurrentHpInput
-              charIndex={charIndex}
-              charCurHp={charCurHp}
-              charMaxHp={charMaxHp}
-              setCombatants={setCombatants}
-            />
+            <CurrentHpInput charId={charId} />
             /
-            <MaxHpInput
-              charIndex={charIndex}
-              charCurHp={charCurHp}
-              charMaxHp={charMaxHp}
-              setCombatants={setCombatants}
-            />
+            <MaxHpInput charId={charId} />
           </div>
         </div>
 

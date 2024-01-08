@@ -7,10 +7,6 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.8",
     "@mui/material": "^5.14.2",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
     "@types/node": "^16.18.39",
     "@types/react-dom": "^18.2.7",
     "node-polyfill-webpack-plugin": "^2.0.1",
@@ -46,6 +42,10 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.5.1",
+    "@types/jest": "^29.5.7",
     "@types/react": "^18.2.18",
     "@types/uuid": "^9.0.3"
   }

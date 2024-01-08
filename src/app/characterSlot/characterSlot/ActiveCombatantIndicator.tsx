@@ -1,18 +1,28 @@
+// React
 import { PropsWithChildren } from 'react'
 
 // CSS
 import '../../styles/ActiveCombatantEffect.css'
 
+// Hooks
+import { useCombatants } from '../../combatants/CombatantsContext'
+import { useCombatantInfo } from '../../combatants/hooks/useCombatantInfo'
+
 interface ActiveCombatanIndicatortProps {
-  activeCombatant: number
-  index: number
+  charId: string
 }
 
-const ActiveCombatantIndicator = ({ activeCombatant, index, children } : PropsWithChildren<ActiveCombatanIndicatortProps>) => {
+const ActiveCombatantIndicator = ({
+  charId,
+  children,
+}: PropsWithChildren<ActiveCombatanIndicatortProps>) => {
+  const { activeCombatant } = useCombatants()
+  const { getCharacterProp } = useCombatantInfo()
+
   return (
     <div
       className={
-        activeCombatant === index
+        getCharacterProp(charId, 'id') === activeCombatant
           ? 'useBliinker characterBanner'
           : 'characterBanner'
       }

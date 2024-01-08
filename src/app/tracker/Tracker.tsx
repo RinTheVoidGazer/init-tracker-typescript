@@ -1,32 +1,30 @@
-// React
-import { useState } from "react"
-
 // Styles
-import "./Tracker.css"
-import Theme from "../styles/Theme"
+import './Tracker.css'
+import Theme from '../styles/Theme'
 
 // MUI
-import { Paper } from "@mui/material"
+import { Paper } from '@mui/material'
 
 // State
-import { CombatantsProvider } from "../combatants/CombatantsContext"
+import { CombatantsProvider } from '../combatants/CombatantsContext'
 
 // Components
 // import ManageData from "../session/ManageData"
-import TurnDisplay from "./trackerControls/TurnDisplay"
-import AddCharacter from "./trackerControls/AddCharacter"
-import NextCombatant from "./trackerControls/NextCombatant"
-import CharacterSheet from "../characterSlot/characterSlot/CharacterSheet"
+import TurnDisplay from './trackerControls/TurnDisplay'
+import AddCharacter from './trackerControls/AddCharacter'
+import NextCombatant from './trackerControls/NextCombatant'
+import CharacterSheet from '../characterSlot/characterSlot/CharacterSheet'
+// import ManageData from '../session/ManageData'
+
+// mock service worker (msw)
 
 const Tracker = () => {
-  const [turnCount, setTurnCount] = useState(1)
-  
-
-
   return (
     <Theme>
       <div className="App">
         <div className="App-header">
+          {/* <ManageData /> */}
+
           <Paper
             elevation={5}
             className="trackerCard"
@@ -45,22 +43,19 @@ const Tracker = () => {
           >
             <CombatantsProvider>
               <CharacterSheet />
-            
-            <div className="trackerControlsContainer addCharacterButtonContainer">
-              <AddCharacter />
-            </div>
 
-            <div className="trackerControlsContainer nextCombatantButtonContainer">
-              <NextCombatant
-                setTurnCount={setTurnCount}
-                turnCount={turnCount}
-              />
-            </div>
+              <div className="trackerControlsContainer addCharacterButtonContainer">
+                <AddCharacter />
+              </div>
+
+              <div className="trackerControlsContainer nextCombatantButtonContainer">
+                <NextCombatant />
+              </div>
+
+              <div className="trackerControlsContainer turnDisplayTextContainer">
+                <TurnDisplay />
+              </div>
             </CombatantsProvider>
-
-            <div className="trackerControlsContainer turnDisplayTextContainer">
-              <TurnDisplay turnCount={turnCount} />
-            </div>
           </Paper>
         </div>
       </div>
