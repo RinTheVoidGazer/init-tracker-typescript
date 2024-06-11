@@ -1,46 +1,28 @@
-// React
-import { Dispatch, SetStateAction } from "react"
-
 // MUI
 import { TextField } from '@mui/material'
 
-// Components
-// import updateNonNestedCharacterValue from '../../functions/updateNonNestedCharacterValue'
+// Hooks
+import { useCombatantInfo } from '../../combatants/hooks/useCombatantInfo'
+import { useUpdateCombatant } from '../hooks/useUpdateCombatant'
 
-// Data
-import { CharacterData } from '../../data/characterData'
-import updateNonNestedCharacterValue from '../../utils/functions/updateNonNestedCharacterValue'
-
-
-interface NameInputProps <Key extends keyof CharacterData> {
-  objKey: Key
-  charIndex: number
-  charName: string
-  setCombatants : Dispatch<SetStateAction<CharacterData[]>>
+interface NameInputProps {
+  charId: string
 }
 
-const NameInput = <Key extends keyof CharacterData>({
-  objKey,
-  charIndex,
-  charName,
-  setCombatants,
-} : NameInputProps<Key>) => {
+const NameInput = ({ charId }: NameInputProps) => {
+  const { getCharacterById } = useCombatantInfo()
+  const { updateCombatant } = useUpdateCombatant()
+
   return (
     <TextField
       label="Character Name"
+      aria-label='Character Name'
       size="small"
       autoFocus
       tabIndex={0}
-      value={charName}
+      value={getCharacterById(charId)?.name}
       color="secondary"
-      onChange={(e) =>
-        updateNonNestedCharacterValue(
-          'name',
-          e.target.value,
-          setCombatants,
-          charIndex
-        )
-      }
+      onChange={(e) => updateCombatant(charId, 'name', e.target.value)}
     />
   )
 }

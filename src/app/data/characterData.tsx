@@ -24,5 +24,11 @@ const characterData = [
 export type CharacterData = typeof characterData[0]
 export type CharacterDataKey = keyof typeof characterData[0]
 export type CharacterStatuses = CharacterStatus
+export type CharacterInfo = typeof characterData[0]
 
 export default characterData
+
+const test = (name : CharacterInfo, ac : CharacterInfo) => {
+  console.log(ac)
+  return name
+}

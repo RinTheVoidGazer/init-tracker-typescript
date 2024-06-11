@@ -1,0 +1,43 @@
+import * as React from "react"
+import DialogTitle from "@mui/material/DialogTitle"
+import Dialog from "@mui/material/Dialog"
+import DialogContent from "@mui/material/DialogContent"
+import DialogContentText from "@mui/material/DialogContentText"
+
+interface DialogCompProps {
+  diagTitle: string,
+  onClose: () => void,
+  open: boolean
+}
+
+const DialogComp = ({diagTitle, children, onClose, open} : PropsWithChildren<DialogCompProps>) => {
+
+  const descriptionElementRef = React.useRef(null)
+
+  React.useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef
+      if (descriptionElement !== null) {
+        descriptionElement.focus()
+      }
+    }
+  }, [open])
+
+  return (
+    <Dialog onClose={onClose} open={open}>
+      <DialogTitle>{diagTitle}</DialogTitle>
+
+      <DialogContent dividers={true}>
+        <DialogContentText
+          id="scroll-dialog-description"
+          ref={descriptionElementRef}
+          tabIndex={-1}
+        >
+          {children}
+        </DialogContentText>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+export default DialogComp

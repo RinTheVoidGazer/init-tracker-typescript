@@ -1,42 +1,29 @@
 // MUI
-import FormGroup from "@mui/material/FormGroup"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import Checkbox from "@mui/material/Checkbox"
+import FormGroup from '@mui/material/FormGroup'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Checkbox from '@mui/material/Checkbox'
 
-// Data
-import { CharacterData, CharacterDataKey } from '../data/characterData'
-import { Dispatch, SetStateAction } from "react"
-
-// Functions
-import updateNonNestedCharacterValue from "../utils/functions/updateNonNestedCharacterValue"
+// Hooks
+import { useUpdateCombatant } from './hooks/useUpdateCombatant'
+import { useCombatantInfo } from '../combatants/hooks/useCombatantInfo'
 
 interface EnemyToggleProps {
-  objKey : CharacterDataKey
-  charIndex : number
-  charIsEnemy : boolean
-  setCombatants : Dispatch<SetStateAction<CharacterData[]>>
+  charId: string
 }
 
-const EnemyToggle = ({
-  objKey,
-  charIndex,
-  charIsEnemy,
-  setCombatants,
-} : EnemyToggleProps) => {
+const EnemyToggle = ({ charId }: EnemyToggleProps) => {
+  const { updateCombatant } = useUpdateCombatant()
+  const { getCharacterProp } = useCombatantInfo()
+
   return (
     <FormGroup>
       <FormControlLabel
         label="Enemy"
         control={
           <Checkbox
-            checked={charIsEnemy}
+            // checked={getCharacterProp(charId, 'isEnemy')}
             onChange={(e) =>
-              updateNonNestedCharacterValue(
-                objKey,
-                e.target.checked,
-                setCombatants,
-                charIndex
-              )
+              updateCombatant(charId, 'isEnemy', e.target.checked)
             }
           />
         }

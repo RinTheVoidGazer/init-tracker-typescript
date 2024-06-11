@@ -1,8 +1,8 @@
-interface TurnDisplayProps {
-  turnCount: number
-}
+import { useTurnCount } from './hooks/useTurnCount'
 
-const TurnDisplay = ({ turnCount } : TurnDisplayProps) => {
+const TurnDisplay = () => {
+const {turnCount} = useTurnCount()
+
   return <span>{turnCount}</span>
 }
 

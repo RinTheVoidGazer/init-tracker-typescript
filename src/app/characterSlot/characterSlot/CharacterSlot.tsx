@@ -3,42 +3,31 @@ import { ComponentProps } from 'react'
 
 // Components
 import CharacterBanner from './CharacterBanner'
-import ParentBox from '../../globalComponents/layout/ParentBox'
 import ActiveCombatantIndicator from './ActiveCombatantIndicator'
 import CharacterSlotTop from './characterSlotTop/CharacterSlotTop'
-import CharacterSlotBottom from "./characterSlotBottom/CharacterSlotBottom"
-import CharacterSlotActions from "./characterSlotActions/CharacterSlotActions"
+import CharacterSlotBottom from './characterSlotBottom/CharacterSlotBottom'
+import CharacterSlotActions from './characterSlotActions/CharacterSlotActions'
+
+// Styles
+import './styles/characterSlot.css'
 
 // meep https://mui.com/material-ui/customization/how-to-customize/
 
-interface CharacterSlotProps extends ComponentProps<typeof CharacterSlotTop> {
-  activeCombatant: number
-}
+interface CharacterSlotProps extends ComponentProps<typeof CharacterSlotTop> {}
 
-const CharacterSlot = ({ activeCombatant, ...props }: CharacterSlotProps) => {
+const CharacterSlot = ({ ...props }: CharacterSlotProps) => {
   return (
-    <ParentBox padding="8px" testId={`characterSlot${props.charIndex}`}>
-        <ActiveCombatantIndicator
-          activeCombatant={activeCombatant}
-          index={props.charIndex}
-        >
-          <CharacterBanner charName={props.charInfo.name} charIsEnemy={props.charInfo.isEnemy} index={props.charIndex}>
-            <CharacterSlotTop {...props} />
+    <div className='characterSlot'>
+      <ActiveCombatantIndicator charId={props.charId}>
+        <CharacterBanner charId={props.charId}>
+          <CharacterSlotTop {...props} />
 
-            <CharacterSlotBottom
-              charIndex={props.charIndex}
-              charInfo={props.charInfo}
-              setCombatants={props.setCombatants}
-            />
-          </CharacterBanner>
-        </ActiveCombatantIndicator>
+          <CharacterSlotBottom charId={props.charId} />
+        </CharacterBanner>
+      </ActiveCombatantIndicator>
 
-        <CharacterSlotActions
-          charIndex={props.charIndex}
-          charInfo={props.charInfo}
-          setCombatants={props.setCombatants}
-        />
-    </ParentBox>
+      <CharacterSlotActions charId={props.charId} />
+    </div>
   )
 }
 

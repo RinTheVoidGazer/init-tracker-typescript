@@ -1,19 +1,26 @@
+// MUI
+import { Fab, Tooltip } from '@mui/material'
 
-// Compontents
-import NextCombatantButton from "./nextCombatant/NextCombatantButton"
+// Component
+import NextCombatantIcon from '@mui/icons-material/NavigateNext'
 
-interface NextCombatantProps {
-  turnCount : number
-  setTurnCount : (value : number) => void
-}
+// Hooks
+import { usePartyManagement } from './hooks/usePartyManagement'
 
-const NextCombatant = ({turnCount, setTurnCount} : NextCombatantProps) => {
+const NextCombatant = () => {
+  const { handleNextCombatant } = usePartyManagement()
 
-  return(
-    <NextCombatantButton
-    setTurnCount={setTurnCount}
-    turnCount={turnCount}
-    />
+  return (
+    <Tooltip title="Next Combatant">
+      <Fab
+        size="small"
+        color="primary"
+        aria-label="next combatant"
+        onClick={() => handleNextCombatant()}
+      >
+        <NextCombatantIcon />
+      </Fab>
+    </Tooltip>
   )
 }
 

@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction, useCallback, useState } from 'react'
+// React
+import { useState } from 'react'
 
 // MUI
 import { Button, Chip, Fab, Tooltip } from '@mui/material'
@@ -10,47 +11,35 @@ import { TextField } from '@mui/material'
 // Components
 import ParentBox from '../../globalComponents/layout/ParentBox'
 
-// Functions
-import handleAddNewStatus from './handleAddNewStatus'
-import handleStatusDeletion from './handleStatusDeletion'
+// Hooks
+import { useStatusManagement } from './hooks/useStatusManagement'
+import { useCombatantInfo } from '../../combatants/hooks/useCombatantInfo'
 
 // Data
-import { CharacterData } from '../../data/characterData'
 import { CharacterStatuses } from '../../data/characterData'
 
-
 interface StatusesProps {
-  charEditIndex: number
-  charStatuses: CharacterStatuses[]
-  setCombatants:  Dispatch<SetStateAction<CharacterData[]>>
+  charId: string
 }
 
-const useNewStatus = ({setCombatants, charEditIndex}: Omit<StatusesProps, 'charStatuses'>) => {
-  const [name, setName] = useState('')
-  const [duration, setDuration] = useState('')
-
-  const handleAdd = useCallback(() =>
-  handleAddNewStatus(
-    setCombatants,
-    charEditIndex,
+const Statuses = ({ charId }: StatusesProps) => {
+  const { getCharacterProp } = useCombatantInfo()
+  const {
     name,
-    duration,
     setName,
-    setDuration
-  ),[charEditIndex, duration, name, setCombatants])
-
-  return {name, setName, duration, setDuration, handleAdd}
-}
-
-const Statuses = ({ charEditIndex, charStatuses, setCombatants } : StatusesProps) => {
-  const { name, duration, setName, setDuration, handleAdd } = useNewStatus({setCombatants, charEditIndex})
+    duration,
+    setDuration,
+    handleAddNewStatus,
+    handleStatusDeletion,
+  } = useStatusManagement()
 
   // Popover Values
   const [anchorEl, setAnchorEl] = useState(null) // meep?
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
 
-  const handleAddStatusClick = (event : any) => { // meep?
+  const handleAddStatusClick = (event: any) => {
+    // meep?
     setAnchorEl(event.currentTarget)
   }
 
@@ -62,10 +51,10 @@ const Statuses = ({ charEditIndex, charStatuses, setCombatants } : StatusesProps
     <ParentBox gap="5px" alignItems="center">
       <Tooltip title="Add a Status">
         <Fab
-          aria-describedby={id}
           size="small"
-          color="primary"
           tabIndex={6}
+          color="primary"
+          aria-describedby={id}
           aria-label="add a status"
           onClick={handleAddStatusClick}
         >
@@ -85,46 +74,46 @@ const Statuses = ({ charEditIndex, charStatuses, setCombatants } : StatusesProps
       >
         <ParentBox flexDirection="column" padding="3px">
           <TextField
-            label="Status Name"
-            variant="standard"
             size="small"
             value={name}
+            variant="standard"
+            label="Status Name"
             onChange={(e) => setName(e.target.value)}
           />
 
           <TextField
-            label="Status Duration"
-            variant="standard"
-            type="number"
             size="small"
+            type="number"
             value={duration}
+            variant="standard"
+            label="Status Duration"
             onChange={(e) => setDuration(e.target.value)}
           />
 
           <Button
-            disabled={!name || !duration}
             variant="contained"
             aria-label="add status"
-            onClick={handleAdd}
+            disabled={!name || !duration}
+            onClick={() => handleAddNewStatus(charId)}
           >
             Add Status
           </Button>
         </ParentBox>
       </Popover>
 
-      {charStatuses.map((status, index) => {
-        return (
-          <Chip
-            aria-label={`${status.name}${charEditIndex}`}
-            key={`${status.name}${charEditIndex}`}
-            avatar={<Avatar>{status.duration}</Avatar>}
+      {(getCharacterProp(charId, 'statuses')! as CharacterStatuses[]).map(
+        (status: CharacterStatuses, index) => {
+          return (
+            <Chip
             label={status.name}
-            onDelete={() =>
-              handleStatusDeletion(index, setCombatants, charEditIndex)
-            }
-          />
-        )
-      })}
+              key={`${status.name}${charId}`}
+              aria-label={`${status.name}${charId}`}
+              avatar={<Avatar>{status.duration}</Avatar>}
+              onDelete={(e) => handleStatusDeletion(charId, index)}
+            />
+          )
+        }
+      )}
     </ParentBox>
   )
 }

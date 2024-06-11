@@ -1,23 +1,19 @@
-// State
-import { useCombatants } from "../../combatants/CombatantsContext"
+// Hooks
+import { useCombatants } from '../../combatants/CombatantsContext'
 
 // Components
-import CharacterSlot from "./CharacterSlot"
-
+import CharacterSlot from './CharacterSlot'
 
 const CharacterSheet = () => {
-const {combatants, setCombatants, activeCombatant} = useCombatants()
-
+  const { combatants } = useCombatants()
+  
   return (
     <div className="characterSlotContainer">
-      {combatants.map((charInfo, index) => {
+      {combatants.map((charInfo) => {
         return (
           <CharacterSlot
             key={`${charInfo.id}`}
-            charInfo={charInfo}
-            charIndex={index}
-            setCombatants={setCombatants}
-            activeCombatant={activeCombatant}
+            charId={charInfo.id}
           />
         )
       })}

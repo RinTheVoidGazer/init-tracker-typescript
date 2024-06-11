@@ -1,28 +1,21 @@
-// React
-import { Dispatch, SetStateAction } from "react"
-
 // MUI
-import { TextField } from "@mui/material"
+import { TextField } from '@mui/material'
 
-// Functions
-import updateNonNestedCharacterValue from "../utils/functions/updateNonNestedCharacterValue"
-
-// Data
-import { CharacterData, CharacterDataKey } from '../data/characterData'
+// Hooks
+import { useCombatantInfo } from '../combatants/hooks/useCombatantInfo'
+import { useUpdateCombatant } from './hooks/useUpdateCombatant'
+import { usePartyManagement } from '../tracker/trackerControls/hooks/usePartyManagement'
 
 interface InitInputProps {
-  objKey : CharacterDataKey
-  charIndex : number
-  charInit : number
-  setCombatants : Dispatch<SetStateAction<CharacterData[]>>
+  charId: string
 }
 
-const InitInput = ({
-  objKey,
-  charIndex,
-  charInit,
-  setCombatants,
-} : InitInputProps) => {
+const InitInput = ({ charId }: InitInputProps) => {
+  const { getCharacterById } = useCombatantInfo()
+  const { updateCombatant } = useUpdateCombatant()
+  const { sortCombatants } = usePartyManagement()
+
+  const { init } = getCharacterById(charId)
   return (
     <TextField
       label="Initiative"
@@ -30,22 +23,10 @@ const InitInput = ({
       tabIndex={2}
       type="number"
       size="small"
-      value={charInit}
-      onChange={(e) =>
-        updateNonNestedCharacterValue(
-          objKey,
-          parseInt(e.target.value),
-          setCombatants,
-          charIndex
-        )
-      }
+      value={init}
+      onChange={(e) => updateCombatant(charId, 'init', e.target.value)}
       onBlur={() => {
-        setCombatants((prevState : CharacterData[]) => {
-          let sortedCombatants = [...prevState]
-          sortedCombatants.sort((a, b) => b.init - a.init)
-
-          return sortedCombatants
-        })
+        sortCombatants()
       }}
     />
   )

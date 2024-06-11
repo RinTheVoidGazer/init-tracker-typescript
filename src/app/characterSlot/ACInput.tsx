@@ -1,40 +1,30 @@
-// React
-import { Dispatch, SetStateAction } from "react"
-
 // MUI
-import { TextField } from "@mui/material"
+import { TextField } from '@mui/material'
 
-// Data
-import { CharacterData, CharacterDataKey } from '../data/characterData'
-
-// Functions
-import updateNonNestedCharacterValue from "../utils/functions/updateNonNestedCharacterValue"
+// Hooks
+import { useCombatantInfo } from '../combatants/hooks/useCombatantInfo'
+import { useUpdateCombatant } from './hooks/useUpdateCombatant'
 
 interface ACInputProps {
-  objKey : CharacterDataKey
-  charIndex : number
-  charAC : number
-  setCombatants : Dispatch<SetStateAction<CharacterData[]>>
+  charId: string
 }
 
-const ACInput = ({ objKey, charIndex, charAC, setCombatants } : ACInputProps) => {
-  // const [inputValue, setInputValue] = useState(characterValue)
+const ACInput = ({ charId }: ACInputProps) => {
+  const { getCharacterById } = useCombatantInfo()
+  const { updateCombatant } = useUpdateCombatant()
+
+  const { ac } = getCharacterById(charId)
 
   return (
     <TextField
-      label="AC"
+      label="Armor Class"
       variant="standard"
       tabIndex={1}
       type="number"
       size="small"
-      value={charAC}
+      value={ac}
       onChange={(e) =>
-        updateNonNestedCharacterValue(
-          objKey,
-          parseInt(e.target.value),
-          setCombatants,
-          charIndex
-        )
+        updateCombatant(charId, 'ac' , e.target.value)
       }
     />
   )

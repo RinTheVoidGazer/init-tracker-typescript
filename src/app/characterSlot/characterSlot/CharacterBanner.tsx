@@ -1,23 +1,31 @@
-// MUI
-import { Paper } from '@mui/material'
+// React
 import { PropsWithChildren } from 'react'
 
+// MUI
+import { Paper } from '@mui/material'
+
+// Hooks
+import { useCombatantInfo } from '../../combatants/hooks/useCombatantInfo'
+
 interface CharacterBannerProps {
-  charName: string
-  charIsEnemy: boolean
-  index: number
+  charId: string
 }
 
-const CharacterBanner = ({ charName, charIsEnemy, index, children } : PropsWithChildren<CharacterBannerProps>) => {
+const CharacterBanner = ({
+  charId,
+  children,
+}: PropsWithChildren<CharacterBannerProps>) => {
+  const { getCharacterProp } = useCombatantInfo()
+
   return (
     <Paper
-      data-testid={`charSlot${charName}${index}`}
-      // name="characterBanner"
+      data-testid={`charSlot${charId}`}
       elevation={3}
       sx={{
-        bgcolor: charIsEnemy ? '#57000cff' : '#7c7cd2ff',
+        bgcolor: getCharacterProp(charId, 'isEnemy')
+          ? '#57000cff'
+          : '#7c7cd2ff',
       }}
-      className="characterSlot"
       style={{
         height: '16vh',
         flex: 1,
