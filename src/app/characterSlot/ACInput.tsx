@@ -17,7 +17,7 @@ const ACInput = ({ charId }: ACInputProps) => {
 
   return (
     <TextField
-      label="AC"
+      label="Armor Class"
       variant="standard"
       tabIndex={1}
       type="number"

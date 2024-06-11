@@ -9,12 +9,11 @@ import { Paper } from '@mui/material'
 import { CombatantsProvider } from '../combatants/CombatantsContext'
 
 // Components
-// import ManageData from "../session/ManageData"
+import ManageData from '../session/ManageData'
 import TurnDisplay from './trackerControls/TurnDisplay'
 import AddCharacter from './trackerControls/AddCharacter'
 import NextCombatant from './trackerControls/NextCombatant'
 import CharacterSheet from '../characterSlot/characterSlot/CharacterSheet'
-// import ManageData from '../session/ManageData'
 
 // mock service worker (msw)
 
@@ -23,25 +22,25 @@ const Tracker = () => {
     <Theme>
       <div className="App">
         <div className="App-header">
-          {/* <ManageData /> */}
+          <CombatantsProvider>
+            <ManageData />
 
-          <Paper
-            elevation={5}
-            className="trackerCard"
-            style={
-              {
-                // borderRadius: "5px",
-                // background: "rgb(20, 20, 20)",
-                // display: "flex",
-                // flexDirection: "column",
-                // width: "90vw",
-                // height: "80vh",
-                // padding: "8px",
-                // position: "relative",
+            <Paper
+              elevation={5}
+              className="trackerCard"
+              style={
+                {
+                  // borderRadius: "5px",
+                  // background: "rgb(20, 20, 20)",
+                  // display: "flex",
+                  // flexDirection: "column",
+                  // width: "90vw",
+                  // height: "80vh",
+                  // padding: "8px",
+                  // position: "relative",
+                }
               }
-            }
-          >
-            <CombatantsProvider>
+            >
               <CharacterSheet />
 
               <div className="trackerControlsContainer addCharacterButtonContainer">
@@ -55,8 +54,8 @@ const Tracker = () => {
               <div className="trackerControlsContainer turnDisplayTextContainer">
                 <TurnDisplay />
               </div>
-            </CombatantsProvider>
-          </Paper>
+            </Paper>
+          </CombatantsProvider>
         </div>
       </div>
     </Theme>

@@ -20,14 +20,12 @@ const CharacterBanner = ({
   return (
     <Paper
       data-testid={`charSlot${charId}`}
-      // name="characterBanner"
       elevation={3}
       sx={{
         bgcolor: getCharacterProp(charId, 'isEnemy')
           ? '#57000cff'
           : '#7c7cd2ff',
       }}
-      className="characterSlot"
       style={{
         height: '16vh',
         flex: 1,

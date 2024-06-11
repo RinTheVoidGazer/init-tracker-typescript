@@ -18,8 +18,9 @@ const CurrentHpInput = ({ charId }: CurrentHpInputProps) => {
   return (
     <TextField
       type="number"
+      name='curHp'
       // label="Current HP"
-      // aria-label='Current HP'
+      aria-label='Current HP'
       variant="standard"
       tabIndex={3}
       size="small"

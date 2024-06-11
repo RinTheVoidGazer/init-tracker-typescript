@@ -16,6 +16,7 @@ const NameInput = ({ charId }: NameInputProps) => {
   return (
     <TextField
       label="Character Name"
+      aria-label='Character Name'
       size="small"
       autoFocus
       tabIndex={0}

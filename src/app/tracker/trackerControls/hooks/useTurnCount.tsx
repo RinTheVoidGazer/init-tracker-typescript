@@ -11,7 +11,7 @@ const useTurnCount = () => {
     })
   }, [setTurnCount])
 
-  return { turnCount, incrementTurnCount }
+  return { turnCount, setTurnCount, incrementTurnCount }
 }
 
 export { useTurnCount }

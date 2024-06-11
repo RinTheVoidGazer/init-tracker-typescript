@@ -1,0 +1,8 @@
+.characterSlot {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  padding: 8px;
+  /* justifyContent: row; */
+  /* alignItems: alignItems; */
+}

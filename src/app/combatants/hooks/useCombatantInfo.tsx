@@ -37,12 +37,6 @@ const {combatants} = useCombatants()
   const getCharacterProp = 
     useCallback(<Key extends keyof CharacterData>(charId: string, prop: Key): CharacterData[Key]  => {
       return getCharacterById(charId)[prop]
-      // if(character){
-      //   return character[prop]
-      // }
-      // if (getCharacterById(charId)) {
-      //   return getCharacterById(charId)![prop]// as CharacterData[Key]
-      // }
     }, [getCharacterById])
 
   return { getCharacterById, getCharacterIndexById, getCharacterIdByIndex, getCharacterProp}

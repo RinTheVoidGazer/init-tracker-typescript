@@ -2,7 +2,7 @@
 import { PropsWithChildren } from 'react'
 
 // CSS
-import '../../styles/ActiveCombatantEffect.css'
+import './styles/ActiveCombatantEffect.css'
 
 // Hooks
 import { useCombatants } from '../../combatants/CombatantsContext'
